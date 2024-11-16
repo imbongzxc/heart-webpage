@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For My Special Someone</title>
+    <style>
+        /* General Styling */
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to bottom, #ff9a9e, #fecfef);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: white;
+        }
+
+        h1 {
+            position: relative;
+            z-index: 2;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+            font-size: 3rem;
+            text-align: center;
+            margin: 0;
+            transition: font-size 0.3s ease, opacity 0.5s ease;
+            opacity: 1;
+        }
+
+        h1.hidden {
+            opacity: 0;
+        }
+
+        /* Floating Heart Animation */
+        .heart {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            background: rgba(255, 255, 255, 0.8);
+            clip-path: polygon(50% 0%, 0% 30%, 0% 70%, 50% 100%, 100% 70%, 100% 30%);
+            animation: float 6s linear infinite;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) scale(0.5);
+                opacity: 0;
+            }
+            50% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh) scale(1);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1 id="centerText">Hi Shu Yee 💕</h1>
+
+    <script>
+        // Predefined messages
+        const messages = [
+            "Tadah! Made a page for you",
+            "Not sure what to put but here goes",
+            "You are my sunshine ☀️",
+            "Who brings me joy and laughter all the time 🤣",
+            "Though i only bring you grief cause i stupid 🥹",
+            "But maybe this time i bring you joy instead? 🤔",
+            "And now im not sure what to put here cause theres no special event 🤡",
+            "Okay bye bye 💕",
+        ];
+
+        let currentIndex = 0;
+
+        // Function to update the center text
+        const updateText = () => {
+            const centerText = document.getElementById('centerText');
+            // Add fade-out effect
+            centerText.classList.add('hidden');
+
+            setTimeout(() => {
+                // Update text and adjust font size based on length
+                const newText = messages[currentIndex];
+                centerText.textContent = newText;
+                const fontSize = Math.max(3, 12 - newText.length * 0.3); // Adjust font size formula
+                centerText.style.fontSize = `${fontSize}rem`;
+
+                // Add fade-in effect
+                centerText.classList.remove('hidden');
+                currentIndex = (currentIndex + 1) % messages.length; // Move to the next message
+            }, 500); // Wait for fade-out to complete
+        };
+
+        // Update the text every 3 seconds
+        setInterval(updateText, 3000);
+
+        // Create floating hearts dynamically
+        const createHeart = () => {
+            const heart = document.createElement('div');
+            heart.className = 'heart';
+            heart.style.left = `${Math.random() * 100}vw`;
+            heart.style.animationDuration = `${Math.random() * 2 + 4}s`;
+            document.body.appendChild(heart);
+            setTimeout(() => heart.remove(), 6000);
+        };
+
+        setInterval(createHeart, 300); // Create hearts every 300ms
+    </script>
+</body>
+</html>
